@@ -1,7 +1,7 @@
 # AirWatcher2
 first commit
 
-Install MySQL 
+Download and install MySQL Installer
 https://dev.mysql.com/downloads/installer/
 
 
