@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include "Sensor.h"
 #include "Attribute.h"
@@ -12,5 +13,20 @@ int main()
 	attribute.print();
 
 }
+*/
+// MySqlTest.cpp : Defines the entry point for the console application.
+//
 
 
+#include <mysql.h>
+#include <iostream>
+#include "Service.h"
+
+using namespace std;
+int qstate;
+
+int main()
+{
+	Service service;
+	//service.initDB();
+}

@@ -27,12 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AirWatcher2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coordinate.cpp">
-      <Filter>Source Files\Models</Filter>
-    </ClCompile>
     <ClCompile Include="Sensor.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
@@ -42,12 +36,18 @@
     <ClCompile Include="Cleaner.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Service.cpp">
+      <Filter>Source Files\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Measurement.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="AirWatcher2.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coordinate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Attribute.h">
@@ -58,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="AgencyView.h">
       <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Service.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Measurement.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

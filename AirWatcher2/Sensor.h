@@ -2,15 +2,22 @@
 #define SENSOR_H
 
 #include <string>
-#include "Coordinate.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <mysql.h>
 
 struct Sensor
 {
 	std::string id;
-	Coordinate position;
+	float latitude;
+	float longitude;
 
 	void print();
-	void input();
+	void create(MYSQL * );
+	void drop(MYSQL * );
+	void insert(MYSQL * , std::string , std::string , std::string );
+	void loadCSV(MYSQL * );
 };
 
 #endif //SENSOR_H

@@ -2,17 +2,25 @@
 #define CLEANER_H
 
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <mysql.h>
 #include <ctime>
-#include "Coordinate.h"
 
 struct Cleaner
 {
 	std::string id;
-	Coordinate position;
+	float latitude;
+	float longitude;
 	std::time_t startWork;
-	std::time_t finishWork;
+	std::time_t stopWork;
 
 	void print();
+	void create(MYSQL *);
+	void drop(MYSQL *);
+	void insert(MYSQL *, std::string, std::string, std::string, std::string, std::string);
+	void loadCSV(MYSQL *);
 };
 
 #endif //CLEANER_H
