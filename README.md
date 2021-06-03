@@ -8,6 +8,6 @@ https://www.youtube.com/watch?v=yNniOHn9Xe0
 
 Build + Use OpenSSL with Visual Studio 2019 or 2017 <br>
 https://www.youtube.com/watch?v=PMHEoBkxYaQ&t=319s
-(Do not run command `cpan -i Test::Template` and `cpan -i Test::More`
+(Do not run command `cpan -i Test::Template` and `cpan -i Test::More`)
 
 Run with Visual Studio
