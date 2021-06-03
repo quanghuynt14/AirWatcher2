@@ -1,22 +1,30 @@
 #pragma once
+
 #include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <vector>
 #include <mysql.h>
-#include <ctime>
+
+using namespace std;
 
 struct Measurement
 {
-	std::time_t date;
-	std::string sensorId;
-	std::string attributeId;
-	float value;
+	const string table_name = "measurements";
 
-	void print();
-	void create(MYSQL *);
-	void drop(MYSQL *);
-	void insert(MYSQL *, std::string, std::string, std::string, std::string);
-	void loadCSV(MYSQL *);
+	void create();
+	void drop();
+	void insert(string date, string sensorId, string attributeId, string value);
+	void loadCSV();
+
+	vector<float> findAVGOneSensor(string date, string sensorId);
+
+	vector<float> findAVGOneSensor(string dateBegin, string dateEnd, string sensorId);
+	
+	vector<vector<float>> findAVGAllSensor(string date);
+	
+	vector<vector<float>> findAVGAllSensor(string dateBegin, string dateEnd);
+	
+	vector<float> findValueOneSensorAllTime(string sensorId);
+	
+	vector<vector<float>> findMultiplyByOneSensor(string dateBegin, string dateEnd, string sensorId);
 };
 

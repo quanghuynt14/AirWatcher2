@@ -1,24 +1,27 @@
-#ifndef SENSOR_H
-#define SENSOR_H
+#pragma once
 
 #include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <vector>
 #include <mysql.h>
+
+using namespace std;
 
 struct Sensor
 {
-	std::string id;
+	const string table_name = "sensors";
+	string id;
 	float latitude;
 	float longitude;
 
-	void print();
-	void create(MYSQL * );
-	void drop(MYSQL * );
-	void insert(MYSQL * , std::string , std::string , std::string );
-	void loadCSV(MYSQL * );
+	void create();
+	void drop();
+	void insert(string id, string lat, string lon);
+	void loadCSV();
+	Sensor findById(string sensor_id);
+	vector<string> findNearbySensors(float latitude, float longitude, float radius);
+	vector<pair<float, int>> findDistanceSensorsTo1Point(float latitude, float longitude);
+	string findClosestSensor(float latitude, float longitude);
+
 };
 
-#endif //SENSOR_H
 

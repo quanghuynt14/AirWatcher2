@@ -1,64 +1,60 @@
 #include "Attribute.h"
+#include "mysql_lib.h"
 
-void Attribute::print()
+void Attribute::create()
 {
-	std::cout << id << " " << unit << " " << description << std::endl;
-}
+	MYSQL * conn = connect_database();
 
-void Attribute::create(MYSQL * conn)
-{
-	int qstate = mysql_query(conn, "CREATE TABLE attributes(id VARCHAR(20) PRIMARY KEY, unit VARCHAR(20), description VARCHAR(50))");
-	if (!qstate) {
-		puts("Successful create table attributes to database !");
-	}
-	else {
-		puts(">< Creating table attributes to database has failed !");
-	}
-}
+	string query = "CREATE TABLE " + table_name + "(";
+	query.append("		id			varchar(20) PRIMARY KEY,");
+	query.append("		unit		varchar(20),");
+	query.append("		description	varchar(50)");
+	query.append(");");
 
-void Attribute::drop(MYSQL * conn)
-{
-	int qstate = mysql_query(conn, "DROP TABLE IF EXISTS attributes");
-	if (!qstate) {
-		puts("Successful drop table attributes to database !");
-	}
-	else {
-		puts(">< Dropping table attributes to database has failed !");
-	}
-}
-
-void Attribute::insert(MYSQL * conn, std::string id, std::string unit, std::string description) {
-	description = std::regex_replace(description, std::regex("'"), "\\'");
-	std::string query = "INSERT INTO attributes(id, unit, description) VALUES('" + id + "', '" + unit + "', '" + description + "')";
 	int qstate = mysql_query(conn, query.c_str());
-	if (!qstate) {
-		std::cout << "Successful insert into table attributes " << id << std::endl;
-	}
-	else {
-		std::cout << ">< Inserting into table attributes " << id << " has failed !" << std::endl;
-	}
+	display_message_create(conn, qstate, table_name);
+}
+
+void Attribute::drop()
+{
+	MYSQL * conn = connect_database();
+
+	string query = "DROP TABLE IF EXISTS " + table_name + ";";
+
+	int qstate = mysql_query(conn, query.c_str());
+	display_message_drop(conn, qstate, table_name);
+}
+
+void Attribute::insert(string id, string unit, string des) 
+{
+	MYSQL * conn = connect_database();
+
+	des = regex_replace(des, regex("'"), "\\'");
+	string query = "INSERT INTO " + table_name + " VALUES('" + id + "', '" + unit + "', '" + des + "')";
+	
+	int qstate = mysql_query(conn, query.c_str());
+	display_message_insert(conn, qstate, table_name);
 }
 
 
-void Attribute::loadCSV(MYSQL * conn)
+void Attribute::loadCSV()
 {
-	std::ifstream file;
-	std::string id, uni, des;
+	MYSQL * conn = connect_database();
 
-	drop(conn);
-	create(conn);
+	ifstream file;
+	string id, uni, des;
 
 	file.open("Data/attributes.csv");
-	std::string record;
+	string record;
 	getline(file, record, '\n');
 	while (getline(file, record, '\n'))
 	{
-		std::istringstream line(record);
+		istringstream line(record);
 		getline(line, id, ';');
 		getline(line, uni, ';');
 		getline(line, des, ';');
 
-		insert(conn, id, uni, des);
+		insert(id, uni, des);
 	}
 	file.close();
 }

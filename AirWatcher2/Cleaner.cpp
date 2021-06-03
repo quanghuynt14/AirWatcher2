@@ -1,67 +1,86 @@
 #include "Cleaner.h"
+#include "mysql_lib.h"
 
-void Cleaner::print()
+void Cleaner::create()
 {
-	std::cout << id << " [" << latitude << ", " << longitude << "] ";
-	std::cout << startWork << " ";
-	std::cout << stopWork << std::endl;
-}
+	MYSQL * conn = connect_database();
 
-void Cleaner::create(MYSQL * conn)
-{
-	int qstate = mysql_query(conn, "CREATE TABLE cleaners(id VARCHAR(20) PRIMARY KEY, latitude FLOAT, longitude FLOAT, start TIMESTAMP, stop TIMESTAMP)");
-	if (!qstate) {
-		puts("Successful create table cleaners to database !");
-	}
-	else {
-		puts(">< Creating table cleaners to database has failed !");
-	}
-}
+	string query = "CREATE TABLE " + table_name + "(";
+	query.append("		id			varchar(20) PRIMARY KEY,");
+	query.append("		latitude	float,");
+	query.append("		longitude	float,");
+	query.append("		start		timestamp,");
+	query.append("		stop		timestamp");
+	query.append(");");
 
-void Cleaner::drop(MYSQL * conn)
-{
-	int qstate = mysql_query(conn, "DROP TABLE IF EXISTS cleaners");
-	if (!qstate) {
-		puts("Successful drop table cleaners to database !");
-	}
-	else {
-		puts(">< Dropping table cleaners to database has failed !");
-	}
-}
-
-void Cleaner::insert(MYSQL * conn, std::string id, std::string latitude, std::string longitude, std::string start, std::string stop) {
-	std::string query = "INSERT INTO cleaners(id, latitude, longitude, start, stop) VALUES('" + id + "', " + latitude + ", " + longitude + ", '" + start + "', '" + stop + "')";
 	int qstate = mysql_query(conn, query.c_str());
-	if (!qstate) {
-		std::cout << "Successful insert into table cleaners " << id << std::endl;
-	}
-	else {
-		std::cout << ">< Inserting into table cleaners " << id << " has failed !" << std::endl;
-	}
+	display_message_create(conn, qstate, table_name);
+}
+
+void Cleaner::drop()
+{
+	MYSQL * conn = connect_database();
+
+	string query = "DROP TABLE IF EXISTS " + table_name + ";";
+
+	int qstate = mysql_query(conn, query.c_str());
+	display_message_drop(conn, qstate, table_name);
+}
+
+void Cleaner::insert(string id, string lat, string lon, string start, string stop) 
+{
+	MYSQL * conn = connect_database();
+
+	string query = "INSERT INTO " + table_name + " VALUES('" + id + "', " + lat + ", " + lon + ", '" + start + "', '" + stop + "');";
+
+	int qstate = mysql_query(conn, query.c_str());
+	display_message_insert(conn, qstate, table_name);
 }
 
 
-void Cleaner::loadCSV(MYSQL * conn)
+void Cleaner::loadCSV()
 {
-	std::ifstream file;
-	std::string id, lat, lon, sta, sto;
+	MYSQL * conn = connect_database();
 
-	drop(conn);
-	create(conn);
+	string query = "LOAD DATA INFILE '";
+	query.append(get_current_directory());
+	query.append(table_name);
+	query.append(".csv'");
+	query.append("INTO TABLE ");
+	query.append(table_name);
+	query.append(" FIELDS TERMINATED BY ';';");
 
-	file.open("Data/cleaners.csv");
-	std::string record;
+	int qstate = mysql_query(conn, query.c_str());
+	display_message_loadCSV(conn, qstate, table_name);
+}
 
-	while (getline(file, record, '\n'))
-	{
-		std::istringstream line(record);
-		getline(line, id, ';');
-		getline(line, lat, ';');
-		getline(line, lon, ';');
-		getline(line, sta, ';');
-		getline(line, sto, ';');
+Cleaner Cleaner::findById(string cleaner_id)
+{
+	MYSQL * conn = connect_database();
 
-		insert(conn, id, lat, lon, sta, sto);
+	string query = "SELECT * FROM ";
+	query.append(table_name);
+	query.append(" WHERE id = '" + cleaner_id + "';");
+	int qstate = mysql_query(conn, query.c_str());
+
+	MYSQL_ROW row;
+	MYSQL_RES * res;
+
+	Cleaner c;
+	if (!qstate) {
+		res = mysql_store_result(conn);
+		while (row = mysql_fetch_row(res)) {
+			c.id = row[0];
+			c.latitude = stof(row[1]);
+			c.longitude = stof(row[2]);
+			c.start = row[3];
+			c.stop = row[4];
+			//cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << " " << row[4] << endl;
+		}
 	}
-	file.close();
+	else {
+		puts("Query failed !");
+	}
+
+	return c;
 }

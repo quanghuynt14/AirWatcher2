@@ -1,27 +1,24 @@
-#ifndef CLEANER_H
-#define CLEANER_H
+#pragma once
 
 #include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include <mysql.h>
-#include <ctime>
+
+using namespace std;
 
 struct Cleaner
 {
-	std::string id;
+	const string table_name = "cleaners";
+	string id;
 	float latitude;
 	float longitude;
-	std::time_t startWork;
-	std::time_t stopWork;
+	string start;
+	string stop;
 
-	void print();
-	void create(MYSQL *);
-	void drop(MYSQL *);
-	void insert(MYSQL *, std::string, std::string, std::string, std::string, std::string);
-	void loadCSV(MYSQL *);
+	void create();
+	void drop();
+	void insert(string id, string lat, string lon, string start, string stop);
+	void loadCSV();
+	Cleaner findById(string id);
 };
 
-#endif //CLEANER_H
 

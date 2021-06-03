@@ -22,9 +22,6 @@
     <Filter Include="Source Files\Views">
       <UniqueIdentifier>{ef3942f5-8c6f-4090-9953-04d3b99d37f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Readers">
-      <UniqueIdentifier>{8b569014-03b7-4092-a512-00840346549a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sensor.cpp">
@@ -45,6 +42,24 @@
     <ClCompile Include="AirWatcher2.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="capture_user_input.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ATMO_index.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalysisView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Agency.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mysql_lib.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sensor.h">
@@ -56,13 +71,28 @@
     <ClInclude Include="Cleaner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AgencyView.h">
-      <Filter>Source Files\Views</Filter>
-    </ClInclude>
     <ClInclude Include="Service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Measurement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="capture_user_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ATMO_index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalysisView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Agency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql_lib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

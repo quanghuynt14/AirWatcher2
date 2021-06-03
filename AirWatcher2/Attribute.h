@@ -1,25 +1,20 @@
-#ifndef ATTRIBUTE_H
-#define ATTRIBUTE_H
+#pragma once
 
-#include <iostream>
 #include <string>
 #include <regex>
 #include <fstream>
 #include <sstream>
 #include <mysql.h>
 
+using namespace std;
+
 struct Attribute
 {
-	std::string id;
-	std::string unit;
-	std::string description;
+	const string table_name = "attributes";
 
-	void print();
-	void create(MYSQL *);
-	void drop(MYSQL *);
-	void insert(MYSQL *, std::string, std::string, std::string);
-	void loadCSV(MYSQL *);
+	void create();
+	void drop();
+	void insert(string id, string unit, string des);
+	void loadCSV();
 };
-
-#endif //ATTRIBUTE_H
 
