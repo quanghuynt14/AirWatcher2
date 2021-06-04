@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ProvidersView.h"
+#include "AnalysisView.h"
 #include "capture_user_input.h"
 
 using namespace std;
@@ -23,4 +24,33 @@ void ProvidersView::printService()
 	cout << "3> Air Quality Index at a precise geographical position at a given moment" << endl;
 	cout << "4> The impact of the cleaners on air quality" << endl;
 	cout << "0> Log Out" << endl;
+}
+
+void ProvidersView::servicePage(int provider_id)
+{
+	while (provider_id != 0) {
+		printService();
+		int choix2 = get_choix("Enter choix", 4);
+
+		switch (choix2)
+		{
+		case 1:
+			AQI_area_moment();
+			break;
+		case 2:
+			AQI_area_period();
+			break;
+		case 3:
+			AQI_position_moment();
+			break;
+		case 4:
+			percentage_improvement(provider_id);
+			break;
+		case 0:
+			provider_id = 0;
+			break;
+		default:
+			break;
+		}
+	}
 }

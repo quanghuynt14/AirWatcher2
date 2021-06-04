@@ -6,6 +6,9 @@
 #include "Attribute.h"
 #include "Measurement.h"
 #include "ATMO_index.h"
+#include "Agency.h"
+#include "Provider.h"
+#include "Individual.h"
 
 using namespace std;
 

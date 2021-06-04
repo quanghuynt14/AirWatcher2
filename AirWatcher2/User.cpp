@@ -42,10 +42,10 @@ int User::auth(string tab, string mail, string pwd)
 	}
 
 	if (id_auth != 0) {
-		cout << "You are connected." << endl;
+		cout << "You are connected." << endl << endl;
 	}
 	else {
-		cout << "Wrong mail or password." << endl;
+		cout << "Wrong mail or password." << endl << endl;
 	}
 	return id_auth;
 }

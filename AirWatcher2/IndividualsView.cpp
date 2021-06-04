@@ -1,5 +1,6 @@
 #include <iostream>
 #include "IndividualsView.h"
+#include "AnalysisView.h"
 #include "capture_user_input.h"
 
 using namespace std;
@@ -27,11 +28,43 @@ void IndividualsView::printService()
 void IndividualsView::printProfile(int uId)
 {
 	Individual ind;
-	vector<string> info = ind.findById(uId);
+	vector<string> info = ind.findInfoById(uId);
 
+	cout << "Private individual profile" << endl;
 	cout << "id        : " << info[0] << endl;
-	cout << "mail      : " << info[1] << endl;
-	cout << "name      : " << info[3] << endl;
-	cout << "point     : " << info[4] << endl;
-	cout << "sensor_id : " << info[5] << endl;
+	cout << "id_str    : " << info[1] << endl;
+	cout << "mail      : " << info[2] << endl;
+	cout << "name      : " << info[4] << endl;
+	cout << "point     : " << info[5] << endl;
+	cout << "sensor_id : " << info[6] << endl;
+	cout << endl;
+}
+
+void IndividualsView::servicePage(int ind_id)
+{
+	while (ind_id != 0) {
+		printService();
+		int choix2 = get_choix("Enter choix", 4);
+
+		switch (choix2)
+		{
+		case 1:
+			AQI_area_moment();
+			break;
+		case 2:
+			AQI_area_period();
+			break;
+		case 3:
+			AQI_position_moment();
+			break;
+		case 4:
+			printProfile(ind_id);
+			break;
+		case 0:
+			ind_id = 0;
+			break;
+		default:
+			break;
+		}
+	}
 }

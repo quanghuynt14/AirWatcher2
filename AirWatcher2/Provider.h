@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <mysql.h>
 #include "User.h"
 
@@ -12,8 +13,10 @@ public:
 
 	void create();
 	void drop();
-	void insert(string mail, string pwd, string name, string cleaner_id);
+	void insert(string id_str, string mail, string pwd, string name, string cleaner_id);
 
-
+	string findIdString(const int provider_id);
+	string findCleanerByProvider(const int provider_id);
+	vector<int> findAllProvider();
 };
 

@@ -4,6 +4,7 @@
 #include "AnalysisView.h"
 #include "capture_user_input.h"
 #include "Service.h"
+#include "Provider.h"
 
 void AQI_area_moment()
 {
@@ -148,9 +149,24 @@ void top_9_similar()
 
 void percentage_improvement()
 {
+	cout << "Level of improvement in air quality" << endl;
+
+	Provider p;
+
+	vector<int> allProvider = p.findAllProvider();
+	for (int i = 0; i < allProvider.size(); i++) {
+		cout << "Report of " << p.findIdString(allProvider[i]) << endl;
+		percentage_improvement(allProvider[i]);
+	}
+}
+
+void percentage_improvement(const int provider_id)
+{
 	Service service;
 	cout << "Level of improvement in air quality" << endl;
-	string cleID = get_cleaner_id("Enter cleaner id");
+
+	Provider p;
+	string cleID = p.findCleanerByProvider(provider_id);
 
 	// Start measuring time
 	auto begin = std::chrono::high_resolution_clock::now();
@@ -177,17 +193,25 @@ void percentage_improvement()
 void analyze_individual_data()
 {
 	Service service;
-	if (service.analyzeIndividualData("Sensor70") < 90) {
-		cout << "Sensor70 dishonest" << endl;
-	}
-	else {
-		cout << "Sensor70 honest" << endl;
-	}
-	if (service.analyzeIndividualData("Sensor36") < 90) {
-		cout << "Sensor36 dishonest" << endl;
-	}
-	else {
-		cout << "Sensor36 honest" << endl;
+
+	Individual ind;
+
+	vector<int> allIndividual = ind.findAllIndividual();
+
+	for (int i = 0; i < allIndividual.size(); i++) {
+
+		string ind_str = ind.findIdString(allIndividual[i]);
+		string ind_sensor = ind.findSensor(allIndividual[i]);
+
+		float percentageTrust = service.analyzeIndividualData(ind_sensor);
+		cout << "Percentage Trust : " << percentageTrust << endl;
+		//cout << ind_str << endl;
+		if (percentageTrust < 90) {
+			cout << ind_str << " with " << ind_sensor << " is dishonest :((((" << endl << endl;
+		}
+		else {
+			cout << ind_str << " with " << ind_sensor << " is honest :)" << endl << endl;
+		}
 	}
 }
 

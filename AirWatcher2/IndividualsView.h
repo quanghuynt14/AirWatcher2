@@ -8,7 +8,7 @@ public:
 	int authentification();
 	void printService();
 	void printProfile(int uId);
-
+	void servicePage(int ind_id);
 };
 
 

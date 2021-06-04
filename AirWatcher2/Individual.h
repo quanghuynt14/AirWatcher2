@@ -13,8 +13,11 @@ public:
 
 	void create();
 	void drop();
-	void insert(string mail, string pwd, string name, int point, string sensor_id);
-	vector<string> findById(int id);
+	void insert(string id_str, string mail, string pwd, string name, int point, string sensor_id);
+	vector<string> findInfoById(const int id);
+	string findIdString(const int id);
+	string findSensor(const int ind_id);
+	vector<int> findAllIndividual();
 
 };
 

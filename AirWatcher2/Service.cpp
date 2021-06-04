@@ -1,16 +1,24 @@
 #include "Service.h"
+#include "capture_user_input.h"
 
 void Service::initDB()
 {
 	cout << "Service : Init DB" << endl;
 
 	// Create models 
+	Agency a;
+	Provider p;
+	Individual ind;
+
 	Sensor sensor;
 	Cleaner cleaner;
 	Attribute attribute;
 	Measurement measurement;
 
 	// Drop tables
+	ind.drop();
+	p.drop();
+	a.drop();
 	measurement.drop();
 	sensor.drop();
 	cleaner.drop();
@@ -27,6 +35,24 @@ void Service::initDB()
 	cleaner.loadCSV();
 	attribute.loadCSV();
 	measurement.loadCSV();
+
+	// Setup agencies
+	a.create();
+	a.insert("obama@gov.us", sha256("obama123"), "Barack Obama");
+	a.insert("trump@gov.us", sha256("trump123"), "Donald Trump");
+	a.insert("macron@gouv.fr", sha256("macron123"), "Emmanuel Macron");
+	a.insert("queen@gov.uk", sha256("queen123"), "Queen Elizabeth II");
+
+	// Setup providers
+	p.create();
+	p.insert("Provider0", "edf@pro.air", sha256("edf123"), "EDF", "Cleaner0");
+	p.insert("Provider1", "engie@pro.air", sha256("engie123"), "Engie", "Cleaner1");
+
+	// Setup individuals
+	ind.create();
+	ind.insert("User0", "huy@user.air", sha256("huy123"), "Huy", 0, "Sensor70");
+	ind.insert("User1", "dat@user.air", sha256("dat123"), "Dat", 0, "Sensor36");
+
 
 }
 
@@ -68,7 +94,6 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, fl
 		result.getATMO(avgGaz);
 	}
 
-	cout << endl;
 	return result;
 }
 
@@ -111,7 +136,6 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, fl
 		result.getATMO(avgGaz);
 	}
 
-	cout << endl;
 	return result;
 }
 
@@ -164,7 +188,6 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 	}
 	result.getATMO(avgGaz);
 
-	cout << endl;
 	return result;
 }
 
@@ -217,7 +240,6 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 	}
 	result.getATMO(avgGaz);
 
-	cout << endl;
 	return result;
 }
 
@@ -250,7 +272,6 @@ vector<pair<float, int>> Service::similarSensor(string dateBegin, string dateEnd
 
 	sort(result.rbegin(), result.rend());
 
-	cout << endl;
 	return result;
 }
 
@@ -278,15 +299,13 @@ vector<pair<float, float>> Service::improveCleaner(string cleaner_id)
 			res.push_back(make_pair(avant.gaz[i].concentration, pendant.gaz[i].concentration));
 		}
 	}
-	cout << endl;
+	
 	return res;
 }
 
 float Service::analyzeIndividualData(string sensor_id)
 {
 	cout << "Service : analyzeIndividualData sensor_id" << endl;
-	//TODO : return vector all sensor of individual 
-	//       for all of them
 
 	Sensor ss;
 	Sensor indivi = ss.findById(sensor_id);
@@ -314,7 +333,7 @@ float Service::analyzeIndividualData(string sensor_id)
 	// Cosine similarity formula
 	float res = (mul / (sqrt(a2)*sqrt(b2))) * 100;
 
-	cout << endl;
 	return res;
 }
+
 

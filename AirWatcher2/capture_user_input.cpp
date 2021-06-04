@@ -91,6 +91,24 @@ bool check_mail_validation(const string s)
 	}
 }
 
+bool check_choix(const string s, const int upTo)
+{
+	regex regLine(R"([0-9]$)");
+
+	if (regex_match(s, regLine)) {
+		int h = stoi(s);
+		if (h >= 0 && h <= upTo) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
 string get_date(const string invite) 
 {
 	cout << invite << " (format YYYY-MM-DD) : ";
@@ -170,22 +188,21 @@ string get_password(const string invite)
 		ch = _getch();
 	}
 	cout << endl;
+
 	return pass;
 }
 
 int get_choix(const string invite, int upTo)
 {
 	cout << invite << " : ";
-	string f = "";
+	string f;
 	getline(cin, f);
-	int h = stoi(f);
-	while (h < 0 || h > upTo) {
-		cout << "Wrong choix. ";
+	while (!check_choix(f, upTo)) {
+		cout << "Wrong choix format. ";
 		cout << invite << " : ";
 		getline(cin, f);
-		int h = stoi(f);
 	}
-	return h;
+	return stoi(f);
 }
 
 
