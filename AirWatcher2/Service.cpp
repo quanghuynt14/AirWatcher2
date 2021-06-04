@@ -68,7 +68,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, fl
 		result.getATMO(avgGaz);
 	}
 
-
+	cout << endl;
 	return result;
 }
 
@@ -111,6 +111,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, fl
 		result.getATMO(avgGaz);
 	}
 
+	cout << endl;
 	return result;
 }
 
@@ -163,6 +164,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 	}
 	result.getATMO(avgGaz);
 
+	cout << endl;
 	return result;
 }
 
@@ -215,6 +217,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 	}
 	result.getATMO(avgGaz);
 
+	cout << endl;
 	return result;
 }
 
@@ -247,6 +250,7 @@ vector<pair<float, int>> Service::similarSensor(string dateBegin, string dateEnd
 
 	sort(result.rbegin(), result.rend());
 
+	cout << endl;
 	return result;
 }
 
@@ -274,7 +278,7 @@ vector<pair<float, float>> Service::improveCleaner(string cleaner_id)
 			res.push_back(make_pair(avant.gaz[i].concentration, pendant.gaz[i].concentration));
 		}
 	}
-	
+	cout << endl;
 	return res;
 }
 
@@ -310,6 +314,7 @@ float Service::analyzeIndividualData(string sensor_id)
 	// Cosine similarity formula
 	float res = (mul / (sqrt(a2)*sqrt(b2))) * 100;
 
+	cout << endl;
 	return res;
 }
 

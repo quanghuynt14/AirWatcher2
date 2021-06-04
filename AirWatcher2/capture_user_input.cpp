@@ -1,6 +1,23 @@
 #include "capture_user_input.h"
+#include <conio.h>
 
-bool check_format_date(string date) 
+string sha256(const string str)
+{
+	unsigned char hash[SHA256_DIGEST_LENGTH];
+	SHA256_CTX sha256;
+	SHA256_Init(&sha256);
+	SHA256_Update(&sha256, str.c_str(), str.size());
+	SHA256_Final(hash, &sha256);
+	stringstream ss;
+	for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+	{
+		ss << hex << setw(2) << setfill('0') << (int)hash[i];
+	}
+	return ss.str();
+}
+
+
+bool check_format_date(const string date) 
 {
 	regex regLine(R"(\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
 
@@ -13,7 +30,7 @@ bool check_format_date(string date)
 	}
 }
 
-bool check_time_period(string date) 
+bool check_time_period(const string date) 
 {
 	regex regLine(R"(2019\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
 
@@ -26,7 +43,7 @@ bool check_time_period(string date)
 	}
 }
 
-bool check_float(string num) 
+bool check_float(const string num) 
 {
 	regex regLine(R"([-|+]?([0-9]*\.[0-9]+|[0-9]+)$)");
 
@@ -38,7 +55,7 @@ bool check_float(string num)
 	}
 }
 
-bool check_sensor_id(string s) 
+bool check_sensor_id(const string s) 
 {
 	regex regLine(R"(Sensor([1-9]|[1-9][0-9])$)");
 
@@ -50,7 +67,7 @@ bool check_sensor_id(string s)
 	}
 }
 
-bool check_cleaner_id(string s)
+bool check_cleaner_id(const string s)
 {
 	regex regLine(R"(Cleaner[0-1]$)");
 
@@ -62,7 +79,19 @@ bool check_cleaner_id(string s)
 	}
 }
 
-string get_date(string invite) 
+bool check_mail_validation(const string s)
+{
+	regex regLine(R"([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$)");
+
+	if (regex_match(s, regLine)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+string get_date(const string invite) 
 {
 	cout << invite << " (format YYYY-MM-DD) : ";
 	string d;
@@ -74,7 +103,7 @@ string get_date(string invite)
 	return d;
 }
 
-float get_float(string invite) 
+float get_float(const string invite)
 {
 	cout << invite << " : ";
 	string f;
@@ -87,7 +116,7 @@ float get_float(string invite)
 	return stof(f);
 }
 
-string get_sensor_id(string invite)
+string get_sensor_id(const string invite)
 {
 	cout << invite << " : ";
 	string f;
@@ -100,7 +129,7 @@ string get_sensor_id(string invite)
 	return f;
 }
 
-string get_cleaner_id(string invite)
+string get_cleaner_id(const string invite)
 {
 	cout << invite << " : ";
 	string f;
@@ -112,5 +141,52 @@ string get_cleaner_id(string invite)
 	}
 	return f;
 }
+
+string get_mail(const string invite)
+{
+	cout << invite << " : ";
+	string f;
+	getline(cin, f);
+	while (!check_mail_validation(f)) {
+		cout << "Wrong mail format. ";
+		cout << invite << " : ";
+		getline(cin, f);
+	}
+	return f;
+}
+
+string get_password(const string invite)
+{
+	cout << invite << " : ";
+
+	string pass = "";
+
+	char ch;
+
+	ch = _getch();
+	while (ch != 13) {//character 13 is enter
+		pass.push_back(ch);
+		cout << '*';
+		ch = _getch();
+	}
+	cout << endl;
+	return pass;
+}
+
+int get_choix(const string invite, int upTo)
+{
+	cout << invite << " : ";
+	string f = "";
+	getline(cin, f);
+	int h = stoi(f);
+	while (h < 0 || h > upTo) {
+		cout << "Wrong choix. ";
+		cout << invite << " : ";
+		getline(cin, f);
+		int h = stoi(f);
+	}
+	return h;
+}
+
 
 
