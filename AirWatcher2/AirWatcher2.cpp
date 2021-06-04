@@ -22,7 +22,7 @@ void printHome();
 
 int main()
 {
-	//setupDatabase();
+	setupDatabase();
 
 	AgenciesView agenciesView;
 	ProvidersView providersView;
