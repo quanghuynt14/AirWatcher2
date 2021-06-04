@@ -16,8 +16,11 @@ int ProvidersView::authentification()
 	return a.auth(a.table_name, mail, sha256(password));
 }
 
-void ProvidersView::printService()
+void ProvidersView::printService(int uId)
 {
+	Provider a;
+	cout << endl;
+	cout << "Bonjour " << a.findName(uId) << endl << endl;
 	cout << "Service provider" << endl;
 	cout << "1> Air Quality Index in a circular area at a given moment" << endl;
 	cout << "2> Air Quality Index in a circular area for time period" << endl;
@@ -29,7 +32,7 @@ void ProvidersView::printService()
 void ProvidersView::servicePage(int provider_id)
 {
 	while (provider_id != 0) {
-		printService();
+		printService(provider_id);
 		int choix2 = get_choix("Enter choix", 4);
 
 		switch (choix2)

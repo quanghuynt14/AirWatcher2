@@ -16,8 +16,11 @@ int AgenciesView::authentification()
 	return a.auth(a.table_name, mail, sha256(password));
 }
 
-void AgenciesView::printService()
+void AgenciesView::printService(int uId)
 {
+	Agency a;
+	cout << endl;
+	cout << "Bonjour " << a.findName(uId) << endl << endl;
 	cout << "Service agency" << endl;
 	cout << "1> Air Quality Index in a circular area at a given moment" << endl;
 	cout << "2> Air Quality Index in a circular area for time period" << endl;
@@ -31,7 +34,7 @@ void AgenciesView::printService()
 void AgenciesView::servicePage(int agency_id)
 {
 	while (agency_id != 0) {
-		printService();
+		printService(agency_id);
 		int choix2 = get_choix("Enter choix", 6);
 
 		switch (choix2)

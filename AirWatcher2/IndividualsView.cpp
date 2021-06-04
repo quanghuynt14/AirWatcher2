@@ -16,8 +16,11 @@ int IndividualsView::authentification()
 	return a.auth(a.table_name, mail, sha256(password));
 }
 
-void IndividualsView::printService()
+void IndividualsView::printService(int uId)
 {
+	Individual a;
+	cout << endl;
+	cout << "Bonjour " << a.findName(uId) << endl << endl;
 	cout << "Service private individual" << endl;
 	cout << "1> Air Quality Index in a circular area at a given moment" << endl;
 	cout << "2> Air Quality Index in a circular area for time period" << endl;
@@ -43,7 +46,7 @@ void IndividualsView::printProfile(int uId)
 void IndividualsView::servicePage(int ind_id)
 {
 	while (ind_id != 0) {
-		printService();
+		printService(ind_id);
 		int choix2 = get_choix("Enter choix", 4);
 
 		switch (choix2)

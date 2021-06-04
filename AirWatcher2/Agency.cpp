@@ -36,4 +36,26 @@ void Agency::insert(string mail, string pwd, string name)
 	display_message_insert(conn, qstate, table_name);
 }
 
+string Agency::findName(const int ind_id)
+{
+	MYSQL * conn = connect_database();
+
+	string query = "SELECT name FROM " + table_name + " WHERE id = " + to_string(ind_id) + ";";
+
+	int qstate = mysql_query(conn, query.c_str());
+	MYSQL_ROW row;
+	MYSQL_RES * res;
+
+	string id_string;
+
+	if (!qstate) {
+		res = mysql_store_result(conn);
+		while (row = mysql_fetch_row(res)) {
+			id_string = row[0];
+		}
+	}
+
+	return id_string;
+}
+
 

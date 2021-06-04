@@ -13,6 +13,6 @@ public:
 	void create();
 	void drop();
 	void insert(string mail, string pwd, string name);
-
+	string findName(const int id);
 };
 

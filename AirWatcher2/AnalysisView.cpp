@@ -155,6 +155,7 @@ void percentage_improvement()
 
 	vector<int> allProvider = p.findAllProvider();
 	for (int i = 0; i < allProvider.size(); i++) {
+		//cout << allProvider[i] << endl;
 		cout << "Report of " << p.findIdString(allProvider[i]) << endl;
 		percentage_improvement(allProvider[i]);
 	}
@@ -168,6 +169,7 @@ void percentage_improvement(const int provider_id)
 	Provider p;
 	string cleID = p.findCleanerByProvider(provider_id);
 
+	cout << cleID << endl;
 	// Start measuring time
 	auto begin = std::chrono::high_resolution_clock::now();
 
@@ -204,7 +206,7 @@ void analyze_individual_data()
 		string ind_sensor = ind.findSensor(allIndividual[i]);
 
 		float percentageTrust = service.analyzeIndividualData(ind_sensor);
-		cout << "Percentage Trust : " << percentageTrust << endl;
+		cout << "Percentage Trust : " << percentageTrust << "%" << endl;
 		//cout << ind_str << endl;
 		if (percentageTrust < 90) {
 			cout << ind_str << " with " << ind_sensor << " is dishonest :((((" << endl << endl;

@@ -6,7 +6,7 @@ class ProvidersView
 {
 public:
 	int authentification();
-	void printService();
+	void printService(int uId);
 	void servicePage(int provider_id);
 
 };

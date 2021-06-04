@@ -16,6 +16,7 @@ public:
 	void insert(string id_str, string mail, string pwd, string name, int point, string sensor_id);
 	vector<string> findInfoById(const int id);
 	string findIdString(const int id);
+	string findName(const int id);
 	string findSensor(const int ind_id);
 	vector<int> findAllIndividual();
 

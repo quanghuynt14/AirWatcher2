@@ -17,6 +17,7 @@ public:
 
 	string findIdString(const int provider_id);
 	string findCleanerByProvider(const int provider_id);
+	string findName(const int id);
 	vector<int> findAllProvider();
 };
 

@@ -193,7 +193,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 
 ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, string dateBegin, string dateEnd)
 {
-	cout << "Service : calculateAirQualityIndex position and period" << endl;
+	//cout << "Service : calculateAirQualityIndex position and period" << endl;
 
 	ATMO_index result;
 
@@ -245,7 +245,7 @@ ATMO_index Service::calculateAirQualityIndex(float latitude, float longitude, st
 
 vector<pair<float, int>> Service::similarSensor(string dateBegin, string dateEnd, string sensor_id)
 {
-	cout << "Service : similarSensor period and sensor_id" << endl;
+	//cout << "Service : similarSensor period and sensor_id" << endl;
 
 	vector<pair<float, int>> result(100);
 
@@ -277,7 +277,7 @@ vector<pair<float, int>> Service::similarSensor(string dateBegin, string dateEnd
 
 vector<pair<float, float>> Service::improveCleaner(string cleaner_id)
 {
-	cout << "Service : improveCleaner cleaner_id" << endl;
+	//cout << "Service : improveCleaner cleaner_id" << endl;
 
 	Cleaner cc;
 	Cleaner c = cc.findById(cleaner_id);

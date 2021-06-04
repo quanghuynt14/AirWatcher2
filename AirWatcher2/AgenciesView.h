@@ -5,7 +5,7 @@ class AgenciesView
 {
 public:
 	int authentification();
-	void printService();
+	void printService(int uId);
 	void servicePage(const int agency_id);
 };
 

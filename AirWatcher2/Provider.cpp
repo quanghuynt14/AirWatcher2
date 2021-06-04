@@ -44,7 +44,7 @@ string Provider::findCleanerByProvider(const int provider_id)
 {
 	MYSQL * conn = connect_database();
 
-	string query = "SELECT * FROM " + table_name + " WHERE id = " + to_string(provider_id) + ";";
+	string query = "SELECT cleaner_id FROM " + table_name + " WHERE id = " + to_string(provider_id) + ";";
 	
 	int qstate = mysql_query(conn, query.c_str());
 	MYSQL_ROW row;
@@ -55,7 +55,7 @@ string Provider::findCleanerByProvider(const int provider_id)
 	if (!qstate) {
 		res = mysql_store_result(conn);
 		while (row = mysql_fetch_row(res)) {
-			cleaner_id = row[4];
+			cleaner_id = row[0];
 		}
 	}
 
@@ -67,6 +67,28 @@ string Provider::findIdString(const int provider_id)
 	MYSQL * conn = connect_database();
 
 	string query = "SELECT id_str FROM " + table_name + " WHERE id = " + to_string(provider_id) + ";";
+
+	int qstate = mysql_query(conn, query.c_str());
+	MYSQL_ROW row;
+	MYSQL_RES * res;
+
+	string id_string;
+
+	if (!qstate) {
+		res = mysql_store_result(conn);
+		while (row = mysql_fetch_row(res)) {
+			id_string = row[0];
+		}
+	}
+
+	return id_string;
+}
+
+string Provider::findName(const int ind_id)
+{
+	MYSQL * conn = connect_database();
+
+	string query = "SELECT name FROM " + table_name + " WHERE id = " + to_string(ind_id) + ";";
 
 	int qstate = mysql_query(conn, query.c_str());
 	MYSQL_ROW row;
